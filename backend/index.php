@@ -505,7 +505,7 @@ function showLogin(bool $error): void { ?>
         <div class="summary-card">
           <div class="summary-count"><?= $s['count'] ?>×</div>
           <div class="summary-name"><?= htmlspecialchars($pName) ?></div>
-          <div class="summary-total">€ <?= number_format($s['count']*$s['price'],2,',','.') ?></div>
+          <div class="summary-total"><?= formatPrice($s['count']*$s['price']) ?></div>
           <div class="summary-users"><?= implode('<br>', array_map('htmlspecialchars', $s['users'])) ?></div>
         </div>
         <?php endforeach; ?>
@@ -522,7 +522,7 @@ function showLogin(bool $error): void { ?>
               <td><?= htmlspecialchars($item['product_name']) ?></td>
               <td><?= htmlspecialchars($item['comment']?:'–') ?></td>
               <td style="color:var(--muted);font-size:.8rem"><?= date('H:i', strtotime($item['updated_at'])) ?></td>
-              <td>€ <?= number_format((float)$item['price'],2,',','.') ?></td>
+              <td><?= formatPrice((float)$item['price']) ?></td>
             </tr>
             <?php endforeach; ?>
           </tbody>
@@ -533,7 +533,7 @@ function showLogin(bool $error): void { ?>
               <td colspan="2"></td>
               <td></td>
               <td style="font-weight:700;color:var(--accent2);padding-top:14px">
-                € <?= number_format(array_sum(array_column($orderItems,'price')),2,',','.') ?>
+                <?= formatPrice(array_sum(array_column($orderItems,'price'))) ?>
               </td>
             </tr>
           </tfoot>
@@ -604,7 +604,7 @@ function showLogin(bool $error): void { ?>
             <input type="text" name="p_name" placeholder="<?= htmlspecialchars(t('admin.products.name_placeholder')) ?>" maxlength="120" required />
           </div>
           <div class="form-group">
-            <label><?= htmlspecialchars(t('admin.products.label_price')) ?></label>
+            <label><?= htmlspecialchars(t('admin.products.label_price', ['currency' => CURRENCY_SYMBOL])) ?></label>
             <input type="text" name="p_price" placeholder="9,50" />
           </div>
         </div>
@@ -644,7 +644,7 @@ function showLogin(bool $error): void { ?>
                 <?php endif; ?>
               </td>
               <td style="color:var(--muted);font-size:.82rem"><?= htmlspecialchars($p['description']) ?></td>
-              <td>€ <?= number_format((float)$p['price'],2,',','.') ?></td>
+              <td><?= formatPrice((float)$p['price']) ?></td>
               <td><span class="badge <?= $p['active']?'badge-active':'badge-closed' ?>"><?= $p['active']?htmlspecialchars(t('common.active')):htmlspecialchars(t('common.inactive')) ?></span></td>
               <td>
                 <div class="actions">
@@ -731,7 +731,7 @@ function showLogin(bool $error): void { ?>
           <input type="text" name="p_name" id="editProductName" maxlength="120" required />
         </div>
         <div class="form-group">
-          <label><?= htmlspecialchars(t('admin.products.label_price')) ?></label>
+          <label><?= htmlspecialchars(t('admin.products.label_price', ['currency' => CURRENCY_SYMBOL])) ?></label>
           <input type="text" name="p_price" id="editProductPrice" placeholder="9,50" />
         </div>
       </div>

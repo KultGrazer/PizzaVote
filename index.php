@@ -487,7 +487,7 @@ if (!$order || $order['status'] !== 'active') {
           <div class="product-desc"><?= htmlspecialchars($lp['description']) ?></div>
           <?php endif; ?>
           <?php if ($lp['price'] > 0): ?>
-          <div class="product-price">&euro; <?= number_format((float)$lp['price'],2,',','.') ?></div>
+          <div class="product-price"><?= formatPrice((float)$lp['price']) ?></div>
           <?php endif; ?>
         </div>
       </div>
@@ -533,7 +533,7 @@ if (!$order || $order['status'] !== 'active') {
           <div class="product-desc"><?= htmlspecialchars($p['description']) ?></div>
           <?php endif; ?>
           <?php if ($p['price'] > 0): ?>
-          <div class="product-price">€ <?= number_format((float)$p['price'], 2, ',', '.') ?></div>
+          <div class="product-price"><?= formatPrice((float)$p['price']) ?></div>
           <?php endif; ?>
         </div>
       </div>

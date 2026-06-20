@@ -96,7 +96,7 @@
   "admin.products.new_title": "Add new product",
   "admin.products.label_name": "Name *",
   "admin.products.name_placeholder": "e.g. Margherita",
-  "admin.products.label_price": "Price (€)",
+  "admin.products.label_price": "Price ({currency})",
   "admin.products.label_desc": "Description",
   "admin.products.desc_placeholder": "Tomato, mozzarella…",
   "admin.products.label_sort": "Sort order",

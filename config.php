@@ -14,6 +14,9 @@ require_once __DIR__ . '/i18n.php';
 // ── Zeitzone ─────────────────────────────────────────────────
 date_default_timezone_set('Europe/Vienna');
 
+// ── Währung ──────────────────────────────────────────────────
+define('CURRENCY_SYMBOL', '€');
+
 // ── SQLite-Datenbankpfad ─────────────────────────────────────
 //    Ordner "data/" wird automatisch angelegt.
 //    Webserver braucht Schreibrecht im Projektordner.

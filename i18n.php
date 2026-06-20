@@ -26,3 +26,8 @@ function t(string $key, array $vars = []): string {
     }
     return $text;
 }
+
+function formatPrice(float $amount): string {
+    $symbol = defined('CURRENCY_SYMBOL') ? CURRENCY_SYMBOL : '€';
+    return $symbol . ' ' . number_format($amount, 2, ',', '.');
+}

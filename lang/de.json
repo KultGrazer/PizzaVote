@@ -96,7 +96,7 @@
   "admin.products.new_title": "Neues Produkt anlegen",
   "admin.products.label_name": "Name *",
   "admin.products.name_placeholder": "z.B. Margherita",
-  "admin.products.label_price": "Preis (€)",
+  "admin.products.label_price": "Preis ({currency})",
   "admin.products.label_desc": "Beschreibung",
   "admin.products.desc_placeholder": "Tomaten, Mozzarella…",
   "admin.products.label_sort": "Reihenfolge",
