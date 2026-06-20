@@ -1,58 +1,63 @@
 # PizzaVote – Setup
 
-Zero-Config PHP + SQLite Webanwendung für gemeinsame Pizzabestellungen im lokalen Netzwerk
-(z. B. LAN-Party). Kein Login für Teilnehmer, kein separater Server (Datenbank, Account-System
-etc.) nötig — nur PHP.
+Zero-config PHP + SQLite web app for shared pizza orders on a local network (e.g. a LAN
+party). No login for participants, no separate server (database, account system, etc.)
+needed — just PHP.
 
-## Wie funktioniert die Nutzer-Zuordnung?
+## Screenshots
 
-**Teilnehmer identifizieren sich nicht per Login, sondern automatisch über ihre lokale
-IP-Adresse** (`getClientIP()` in `index.php`, ausgewertet aus `HTTP_X_FORWARDED_FOR` /
+| Order page | Admin – Orders | Admin – Products |
+|---|---|---|
+| ![Order page](screenshots/dashboard.png) | ![Admin orders](screenshots/orders.png) | ![Admin products](screenshots/products.png) |
+
+## How does user identification work?
+
+**Participants don't log in — they're identified automatically by their local IP
+address** (`getClientIP()` in `index.php`, read from `HTTP_X_FORWARDED_FOR` /
 `HTTP_CLIENT_IP` / `REMOTE_ADDR`):
 
-- Beim ersten Besuch wird einmalig nach einem Namen gefragt.
-- Dieser Name wird zusammen mit der IP-Adresse in der `users`-Tabelle gespeichert
-  (`ip` ist `UNIQUE`) — **kein** Cookie, **kein** `localStorage`, **kein** Passwort.
-- Bei jedem weiteren Besuch von derselben IP wird der Nutzer automatisch wiedererkannt.
-- Der Name lässt sich jederzeit ändern (✎-Symbol oben), die Zuordnung zur IP bleibt dabei
-  bestehen.
+- On first visit, you're asked once for a name.
+- That name is stored together with the IP address in the `users` table (`ip` is
+  `UNIQUE`) — **no** cookie, **no** `localStorage`, **no** password.
+- On every later visit from the same IP, the user is recognized automatically.
+- The name can be changed at any time (✎ icon at the top); the IP association stays
+  the same.
 
-**Wichtig zu wissen:**
+**Good to know:**
 
-- Das funktioniert zuverlässig, solange jedes Gerät im LAN eine **eigene** IP per DHCP
-  bekommt (Standard-Verhalten in fast jedem Heimrouter/Hotspot).
-- Geräte **hinter derselben IP** (z. B. gemeinsames NAT/Proxy) werden als **eine** Person
-  behandelt — die letzte gespeicherte Auswahl gewinnt.
-- Beim lokalen Testen von einem einzigen Rechner über `localhost`/`127.0.0.1` sehen **alle**
-  Anfragen wie ein einziger Nutzer aus. Um das Mehrnutzer-Verhalten zu testen, muss über die
-  echte LAN-IP des Host-Rechners von verschiedenen Geräten zugegriffen werden (siehe
-  "Schnellstart" unten).
-- Ändert ein Gerät seine IP (z. B. neue DHCP-Lease, anderes WLAN), erscheint es als neuer
-  Nutzer und wird erneut nach einem Namen gefragt.
+- This works reliably as long as every device on the LAN gets its **own** IP via DHCP
+  (the default behavior of almost every home router/hotspot).
+- Devices **behind the same IP** (e.g. shared NAT/proxy) are treated as **one** person —
+  the last saved selection wins.
+- When testing locally from a single machine via `localhost`/`127.0.0.1`, **all**
+  requests look like a single user. To test multi-user behavior, access the app via the
+  host machine's real LAN IP from different devices (see "Quickstart" below).
+- If a device's IP changes (e.g. new DHCP lease, different Wi-Fi), it shows up as a new
+  user and is asked for a name again.
 
-## Projektstruktur
+## Project structure
 
 ```
 www/
-├── config.php             ← Konfiguration: Admin-Passwort, Sprache, Zeitzone, DB-Setup
-├── i18n.php               ← Übersetzungs-Helper (Funktion t())
-├── lang/                  ← Sprachdateien für die Oberfläche
+├── config.php             ← Configuration: admin password, language, timezone, DB setup
+├── i18n.php               ← Translation helper (function t())
+├── lang/                  ← UI language files
 │   ├── de.json
 │   └── en.json
-├── index.php              ← Frontend für alle Teilnehmer (IP-basiert, kein Login)
+├── index.php              ← Frontend for all participants (IP-based, no login)
 ├── backend/
-│   └── index.php          ← Admin-Panel (passwortgeschützt): Bestellungen + Produkte
-├── phpliteadmin/          ← Drittanbieter-Tool zur direkten DB-Ansicht (siehe Sicherheit!)
-├── data/                  ← wird automatisch angelegt (SQLite-DB: bestellung.db)
-└── img/                   ← Produktbilder (lokale Dateien oder externe URLs in der DB)
+│   └── index.php          ← Admin panel (password-protected): orders + products
+├── phpliteadmin/          ← Third-party tool for direct DB access (see Security!)
+├── data/                  ← created automatically (SQLite DB: bestellung.db)
+└── img/                   ← product photos (local files or external URLs in the DB)
     ├── margherita.jpg
     ├── salami.jpg
     └── ...
 ```
 
-## Installation (eigener Webserver)
+## Installation (own web server)
 
-1. **PHP-Modul prüfen:**
+1. **Check PHP modules:**
    ```bash
    # Fedora / Nobara:
    sudo dnf install php php-pdo php-sqlite3
@@ -61,85 +66,89 @@ www/
    sudo apt install php php-sqlite3
    ```
 
-2. **Dateien auf Server kopieren** (z.B. `/var/www/html/bestellung/`)
+2. **Copy the files to your server** (e.g. `/var/www/html/bestellung/`)
 
-3. **Schreibrecht für `data/`- und `img/`-Ordner:**
+3. **Make `data/` and `img/` writable:**
    ```bash
    mkdir data
    chmod 755 data img
-   # oder falls nötig:
+   # or if needed:
    chown www-data:www-data data img
    ```
 
-4. **`config.php` anpassen:**
-   - `ADMIN_PASSWORD` ändern!
-   - Zeitzone ggf. anpassen (Standard: Europe/Vienna)
-   - `APP_LANG` setzen: `'de'` oder `'en'` (passende Datei muss in `lang/` existieren)
+4. **Adjust `config.php`:**
+   - Change `ADMIN_PASSWORD`!
+   - Adjust the timezone if needed (default: Europe/Vienna)
+   - Set `APP_LANG`: `'de'` or `'en'` (matching file must exist in `lang/`)
 
-5. **Produktbilder** in `img/` ablegen — oder URLs in den Produkten verwenden.
+5. **Product photos**: put them in `img/` — or use URLs in the products instead.
 
-6. **Fertig!** Beim ersten Aufruf wird die Datenbank automatisch angelegt
-   und mit 9 Beispielprodukten befüllt.
+6. **Done!** On first run, the database is created automatically and seeded with 9
+   example products.
 
-## Schnellstart (lokal testen, ohne eigenen Webserver)
+## Quickstart (test locally, no web server needed)
 
-PHPs eingebauter Server reicht für eine LAN-Party völlig aus:
+PHP's built-in server is plenty for a LAN party:
 
 ```bash
 cd www
-# Falls die Erweiterung pdo_sqlite in der globalen php.ini deaktiviert ist,
-# nur für diesen einen Prozess aktivieren (keine Systemdatei anfassen):
+# If the pdo_sqlite extension is disabled in the global php.ini,
+# enable it just for this one process (no system file changes needed):
 php -d extension=pdo_sqlite -S 0.0.0.0:8000
 ```
 
-- `0.0.0.0` statt `localhost` binden, damit die App auch von anderen Geräten im selben
-  Netzwerk erreichbar ist (siehe oben zur IP-Zuordnung — das ist für den Mehrnutzer-Betrieb
-  notwendig).
-- Lokale IP herausfinden: `ipconfig | findstr IPv4` (Windows) bzw. `ip addr | grep inet`
+- Bind to `0.0.0.0` instead of `localhost` so the app is reachable from other devices on
+  the same network (see the IP-identification section above — this is required for
+  multi-user operation).
+- Find your local IP: `ipconfig | findstr IPv4` (Windows) or `ip addr | grep inet`
   (Linux/Mac).
-- Dann `http://<lokale-IP>:8000` an alle Teilnehmer im selben Netzwerk weitergeben.
+- Then share `http://<local-ip>:8000` with everyone on the same network.
 
-## Nutzung
+## Usage
 
 - **Frontend:** `http://<server-ip>:<port>/`
-- **Backend:** `http://<server-ip>:<port>/backend/` — Login mit `ADMIN_PASSWORD` aus
+- **Backend:** `http://<server-ip>:<port>/backend/` — log in with `ADMIN_PASSWORD` from
   `config.php`
 
-### Admin-Funktionen (Backend)
+### Admin features (backend)
 
-- **Bestellungen**: neue starten (mit optionaler Deadline), bearbeiten, abschließen,
-  reaktivieren, löschen; Zusammenfassung mit Gesamtsumme je Person; Druckansicht
-- **Produkte**: anlegen, bearbeiten, aktivieren/deaktivieren, löschen
-- **Produktbild**: Pfad/URL manuell eintragen ODER Bilddatei hochladen (JPG/PNG/GIF/WEBP) —
-  wird automatisch auf 800×600 zugeschnitten/skaliert. Bleibt unverändert, wenn beim
-  Bearbeiten nichts Neues hochgeladen wird.
+- **Orders**: start a new one (with optional deadline), edit, close, reactivate, delete;
+  summary with total per person; print view
+- **Products**: create, edit, activate/deactivate, delete
+- **Product photo**: enter a path/URL manually OR upload an image file
+  (JPG/PNG/GIF/WEBP) — automatically cropped/resized to 800×600. Stays unchanged if
+  nothing new is uploaded while editing.
 
-## Mehrsprachigkeit
+## Multilingual support
 
-Die Oberfläche (Labels, Buttons, Meldungen) unterstützt Deutsch und Englisch:
+The interface (labels, buttons, messages) supports German and English:
 
-- Sprache wird **statisch** über `define('APP_LANG', 'de');` in `config.php` gewählt —
-  kein Sprach-Umschalter für Endnutzer in der Oberfläche.
-- Neue Sprache hinzufügen: `lang/<code>.json` mit denselben Schlüsseln wie `lang/de.json`
-  anlegen.
-- **Nicht** übersetzt werden Pizzanamen, Beschreibungen und Kommentare — die bleiben so,
-  wie sie in der Datenbank/im Admin-Panel eingetragen wurden.
+- The language is chosen **statically** via `define('APP_LANG', 'de');` in `config.php`
+  — there's no language switcher for end users in the UI.
+- To add a new language: create `lang/<code>.json` with the same keys as
+  `lang/de.json`.
+- **Not** translated: product names, descriptions, and comments — they stay exactly as
+  entered in the database/admin panel.
 
-## Sicherheit
+## Security
 
-- **`ADMIN_PASSWORD` unbedingt ändern** — der Standardwert ist nur ein Platzhalter.
-- **Nicht öffentlich ins Internet routen.** Diese App ist als reine LAN-Lösung gedacht
-  (kein CSRF-Schutz, einfacher Session-Login). Bereits beobachtet: Ein automatisierter
-  SQL-Injection-Versuch über das Namensfeld von einer öffentlichen IP — durch durchgängige
-  Verwendung von PDO Prepared Statements wirkungslos, zeigt aber, dass ein offener Port von
-  Bots gefunden und abgetastet wird.
-- Die `data/`-Mappe sollte per `.htaccess` oder Webserver-Config
-  nicht direkt erreichbar sein:
+- **Change `ADMIN_PASSWORD`** — the default value is only a placeholder.
+- **Don't expose this to the public internet.** This app is meant as a pure LAN
+  solution (no CSRF protection, simple session login). Already observed in the wild: an
+  automated SQL injection attempt via the name field from a public IP — harmless thanks
+  to consistent use of PDO prepared statements, but proof that an open port gets found
+  and probed by bots.
+- The `data/` folder should not be directly reachable via `.htaccess` or web server
+  config:
   ```apache
   # .htaccess in data/
   Deny from all
   ```
-- **`phpliteadmin/`** erlaubt direkten Datenbankzugriff übers Web und steht aktuell noch
-  auf dem **Standard-Passwort `admin`** (`phpliteadmin.config.php`, Zeile `$password`) —
-  das ist ein öffentlich bekanntes Default-Credential. **Vor jedem Einsatz unbedingt
-  ändern** oder den Ordner ganz entfernen, falls nicht benötigt.
+- **`phpliteadmin/`** allows direct database access over the web and currently still
+  uses the **default password `admin`** (`phpliteadmin.config.php`, the `$password`
+  line) — a publicly known default credential. **Change it before any real use**, or
+  remove the folder entirely if you don't need it.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
