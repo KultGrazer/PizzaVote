@@ -2,7 +2,8 @@
 
 Zero-config PHP + SQLite web app for shared pizza orders on a local network (e.g. a LAN
 party). No login for participants, no separate server (database, account system, etc.)
-needed — just PHP.
+needed — just PHP. Participants are recognized automatically by their local IP address
+(see ["How does user identification work?"](#how-does-user-identification-work) below).
 
 ## Screenshots
 
