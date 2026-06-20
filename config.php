@@ -17,7 +17,7 @@ date_default_timezone_set('Europe/Vienna');
 // ── SQLite-Datenbankpfad ─────────────────────────────────────
 //    Ordner "data/" wird automatisch angelegt.
 //    Webserver braucht Schreibrecht im Projektordner.
-define('DB_PATH', __DIR__ . '/data/bestellung.db');
+define('DB_PATH', __DIR__ . '/data/pizzavote.db');
 
 // ── PDO-Verbindung + Auto-Setup ───────────────────────────────
 function getDB(): PDO {
