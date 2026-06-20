@@ -139,7 +139,7 @@ if (!$order || $order['status'] !== 'active') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= htmlspecialchars(t('app.name')) ?></title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23e8651a%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><path d=%22M12 21.5c-3.04 0 -5.952 -.714 -8.5 -1.983l8.5 -16.517l8.5 16.517a19.09 19.09 0 0 1 -8.5 1.983%22/><path d=%22M5.38 15.866a14.94 14.94 0 0 0 6.815 1.634a14.944 14.944 0 0 0 6.502 -1.479%22/><path d=%22M13 11.01v-.01%22/><path d=%22M11 14v-.01%22/></svg>">
+<link rel="icon" type="image/png" href="img/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -430,7 +430,7 @@ if (!$order || $order['status'] !== 'active') {
 
   <div class="page-top">
     <div class="page-brand">
-      <div class="brand-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 21.5c-3.04 0 -5.952 -.714 -8.5 -1.983l8.5 -16.517l8.5 16.517a19.09 19.09 0 0 1 -8.5 1.983"/><path d="M5.38 15.866a14.94 14.94 0 0 0 6.815 1.634a14.944 14.944 0 0 0 6.502 -1.479"/><path d="M13 11.01v-.01"/><path d="M11 14v-.01"/></svg> <?= htmlspecialchars(t('app.name')) ?></div>
+      <div class="brand-title"><img src="img/favicon.png" alt="" style="width:1em;height:1em;vertical-align:-0.125em"> <?= htmlspecialchars(t('app.name')) ?></div>
       <div class="user-chip" onclick="openRename()" title="<?= htmlspecialchars(t('front.rename.tooltip')) ?>">
         <div class="avatar" id="userAvatar"><?= htmlspecialchars(mb_strtoupper(mb_substr($user['name'],0,1))) ?></div>
         <span id="userName"><?= htmlspecialchars($user['name']) ?></span>

@@ -247,6 +247,7 @@ function showLogin(bool $error): void { ?>
 <!DOCTYPE html><html lang="<?= APP_LANG ?>"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title><?= htmlspecialchars(t('admin.login.title')) ?></title>
+<link rel="icon" type="image/png" href="../img/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -260,7 +261,7 @@ function showLogin(bool $error): void { ?>
   .err{color:#e05555;font-size:.88rem;margin-bottom:14px}
 </style></head><body>
 <div class="card">
-  <h1><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 21.5c-3.04 0 -5.952 -.714 -8.5 -1.983l8.5 -16.517l8.5 16.517a19.09 19.09 0 0 1 -8.5 1.983"/><path d="M5.38 15.866a14.94 14.94 0 0 0 6.815 1.634a14.944 14.944 0 0 0 6.502 -1.479"/><path d="M13 11.01v-.01"/><path d="M11 14v-.01"/></svg> <?= htmlspecialchars(t('admin.brand')) ?></h1>
+  <h1><img src="../img/favicon.png" alt="" style="width:1em;height:1em;vertical-align:-0.125em"> <?= htmlspecialchars(t('admin.brand')) ?></h1>
   <?php if ($error): ?><div class="err"><?= htmlspecialchars(t('admin.login.wrong_password')) ?></div><?php endif; ?>
   <form method="post">
     <input type="password" name="pw" placeholder="<?= htmlspecialchars(t('admin.login.password_placeholder')) ?>" autofocus required />
@@ -276,6 +277,7 @@ function showLogin(bool $error): void { ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= htmlspecialchars(t('admin.page_title')) ?></title>
+<link rel="icon" type="image/png" href="../img/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -384,7 +386,7 @@ function showLogin(bool $error): void { ?>
 <div class="layout">
 
   <aside class="sidebar">
-    <div class="sidebar-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em;vertical-align:-0.125em"><path d="M12 21.5c-3.04 0 -5.952 -.714 -8.5 -1.983l8.5 -16.517l8.5 16.517a19.09 19.09 0 0 1 -8.5 1.983"/><path d="M5.38 15.866a14.94 14.94 0 0 0 6.815 1.634a14.944 14.944 0 0 0 6.502 -1.479"/><path d="M13 11.01v-.01"/><path d="M11 14v-.01"/></svg> <?= htmlspecialchars(t('admin.brand')) ?></div>
+    <div class="sidebar-logo"><img src="../img/favicon.png" alt="" style="width:1em;height:1em;vertical-align:-0.125em"> <?= htmlspecialchars(t('admin.brand')) ?></div>
     <a class="nav-item <?= !isset($_GET['page'])||$_GET['page']==='orders'?'active':'' ?>" href="?page=orders">
       <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1em;height:1em"><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2"/><path d="M9 5a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2"/><path d="M9 12l.01 0"/><path d="M13 12l2 0"/><path d="M9 16l.01 0"/><path d="M13 16l2 0"/></svg></span> <?= htmlspecialchars(t('admin.nav.orders')) ?>
     </a>

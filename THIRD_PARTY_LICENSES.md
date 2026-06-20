@@ -29,3 +29,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
+
+## Favicon
+
+`img/favicon.png` (used as the favicon and in the brand title/logo in both the
+frontend and the admin backend) is the
+["Pizza" icon](https://svgstack.com/icon/pizza-icon-6693) from
+<a href="https://svgstack.com" target="_blank">SVG Stack</a>, licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (Creative Commons
+Attribution 4.0 International).

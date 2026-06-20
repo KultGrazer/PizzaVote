@@ -153,8 +153,10 @@ The interface (labels, buttons, messages) supports German and English:
 
 ## Credits
 
-UI icons are from [Tabler Icons](https://tabler.io/icons) (MIT license) — see
-[THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
+UI icons are from [Tabler Icons](https://tabler.io/icons) (MIT license). The
+favicon/logo is the ["Pizza" icon](https://svgstack.com/icon/pizza-icon-6693) from
+<a href="https://svgstack.com" target="_blank">SVG Stack</a> (CC BY 4.0). See
+[THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md) for full license texts.
 
 ## License
 
