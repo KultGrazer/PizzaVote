@@ -49,7 +49,7 @@ www/
 ├── backend/
 │   └── index.php          ← Admin panel (password-protected): orders + products
 ├── phpliteadmin/          ← Third-party tool for direct DB access (see Security!)
-├── data/                  ← created automatically (SQLite DB: pizzavote.db)
+├── data/                  ← created automatically (SQLite DB: PizzaVote.db)
 └── img/                   ← product photos (local files or external URLs in the DB)
     ├── margherita.jpg
     ├── salami.jpg
