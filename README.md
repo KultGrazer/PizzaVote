@@ -1,4 +1,4 @@
-# PizzaVote – Setup
+# PizzaVote – Zero-Config Pizza Ordering for Local Networks
 
 Zero-config PHP + SQLite web app for shared pizza orders on a local network (e.g. a LAN
 party). No login for participants, no separate server (database, account system, etc.)
